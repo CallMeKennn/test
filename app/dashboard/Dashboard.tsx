@@ -87,26 +87,28 @@ const Dashboard = () => {
     },
   ];
 
-  const generateIDName = (name: string, users: any) => {
+  const generateIDName = (name: string, users: any[]) => {
     const parts = name.trim().split(/\s+/);
+
     const lastName = parts[parts.length - 1]
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
+
     const initials = parts
       .slice(0, -1)
-      .map((word) => word[0].toUpperCase())
+      .map((word) => word[0]?.toUpperCase())
       .join("");
-    let baseUsername = `${lastName}${initials}`;
 
-    let username = baseUsername;
+    let baseId = `${lastName}${initials}`;
+    let newId = baseId;
     let counter = 1;
 
-    while (users.some((user: any) => user.username === username)) {
-      username = `${baseUsername}${counter}`;
+    while (users.some((u) => u.id === newId)) {
+      newId = `${baseId}${counter}`;
       counter++;
     }
 
-    return username;
+    return newId;
   };
 
   const handleOK = (user: any) => {
