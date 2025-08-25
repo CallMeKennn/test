@@ -27,7 +27,7 @@ export interface User {
 const Dashboard = () => {
   const { Title } = Typography;
 
-  const [users, setUsers] = useState(listUsers);
+  const [users, setUsers] = useState<User[]>(listUsers);
   const [pageSize, setPageSize] = useState<number>(5);
   const [status, setStatus] = useState<"create" | "edit" | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -74,8 +74,8 @@ const Dashboard = () => {
             </Button>
             <Button
               onClick={() => {
-                setUsers((prev: any) =>
-                  prev.filter((user: any) => user.id !== item.id)
+                setUsers((prev: User[]) =>
+                  prev.filter((user: User) => user.id !== item.id)
                 );
               }}
             >
@@ -87,7 +87,7 @@ const Dashboard = () => {
     },
   ];
 
-  const generateIDName = (name: string, users: any[]) => {
+  const generateIDName = (name: string, users: User[]) => {
     const parts = name.trim().split(/\s+/);
 
     const lastName = parts[parts.length - 1]
@@ -111,19 +111,19 @@ const Dashboard = () => {
     return newId;
   };
 
-  const handleOK = (user: any) => {
+  const handleOK = (user: User) => {
     if (status === "create") {
-      setUsers((prev: any) => [
+      setUsers((prev: User[]) => [
         { ...user, id: generateIDName(user.name, prev) },
         ...prev,
       ]);
     } else if (status === "edit") {
-      setUsers((prev: any) => {
-        return prev.map((item: any) => {
+      setUsers((prev: User[]) => {
+        return prev.map((item: User) => {
           if (item.id === user.id) {
             const updatedUsername = generateIDName(
               user.name,
-              prev.filter((u: any) => u.id !== user.id)
+              prev.filter((u: User) => u.id !== user.id)
             );
             return { ...user, id: updatedUsername };
           }

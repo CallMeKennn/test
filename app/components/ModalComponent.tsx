@@ -1,13 +1,14 @@
 import React from "react";
 import Modal from "antd/es/modal/Modal";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { User } from "../dashboard/Dashboard";
 
 interface Props {
   status: "create" | "edit" | null;
   isModalOpen: boolean;
-  user: any;
-  handleOK: (user: any) => void;
+  user: User | null;
+  handleOK: (user: User) => void;
   handleCancel?: () => void;
 }
 
@@ -53,7 +54,7 @@ const ModalComponent = ({
     }
   }, [user, status, reset]);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: User) => {
     handleOK(data);
     reset({
       id: "",
