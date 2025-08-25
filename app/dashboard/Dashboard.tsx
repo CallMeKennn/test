@@ -99,6 +99,7 @@ const Dashboard = () => {
       .map((word) => word[0]?.toUpperCase())
       .join("");
 
+    // eslint-disable-next-line prefer-const
     let baseId = `${lastName}${initials}`;
     let newId = baseId;
     let counter = 1;
